@@ -54,8 +54,18 @@ node infra/secure.mjs --apply  # apply them
 node infra/smoke.mjs           # live checks after deploy
 ```
 
-The WAF rule blocks a set of countries; **Bot Fight Mode** challenges bad bots but allows verified
-crawlers (Googlebot/Bingbot), so the site still indexes normally.
+The WAF rule (`infra/secure.mjs --apply`) blocks a set of countries. Also turn on **Bot Fight Mode**
+once in the dashboard — **Security → Bots → Bot Fight Mode → On**. It challenges bad bots but allows
+verified crawlers (Googlebot/Bingbot), so indexing is unaffected. (On the free plan Bot Fight Mode is
+a dashboard toggle; it can't be set via API.)
+
+## Auto-deploy (GitHub Actions)
+
+Pushing to `main` builds, tests, and deploys automatically via `.github/workflows/deploy.yml` (free).
+In Sally's GitHub repo add two **Actions secrets** (Settings → Secrets and variables → Actions):
+
+- `CLOUDFLARE_API_TOKEN` — Sally's scoped token (see below)
+- `CLOUDFLARE_ACCOUNT_ID` — the Cloudflare account ID
 
 ## Creating a scoped Cloudflare API token (sallyalptekin.com ONLY)
 

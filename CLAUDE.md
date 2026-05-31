@@ -58,6 +58,13 @@ Deploy needs `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` (or `npx wrangler 
 - **Security**: `infra/secure.mjs --apply` sets a WAF geo-block + Bot Fight Mode (allows verified
   crawlers, so indexing is fine).
 
+## Deploy & tokens
+
+- Push to `main` → `.github/workflows/deploy.yml` builds, tests, and deploys (free). Needs repo
+  secrets `CLOUDFLARE_API_TOKEN` (Sally's scoped token) + `CLOUDFLARE_ACCOUNT_ID`.
+- **Bot Fight Mode**: enable in the dashboard (Security → Bots → Bot Fight Mode → On) — free anti-bot
+  that allows verified crawlers. WAF geo-block via `infra/secure.mjs --apply` (already applied).
+
 ## Status / TODO
 
 - [ ] Add Sally's real **LinkedIn URL** + **public email** in `site/src/data/site.ts`.
