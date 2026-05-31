@@ -127,6 +127,11 @@ export async function getBotFightMode(token, zoneId) {
   }
 }
 
+// Force HTTP → HTTPS (301) for all hostnames in the zone.
+export async function enableAlwaysHttps(token, zoneId) {
+  return cf(`/zones/${zoneId}/settings/always_use_https`, { method: 'PATCH', token, body: { value: 'on' } });
+}
+
 export function parseArgs() {
   return { apply: process.argv.slice(2).includes('--apply') };
 }

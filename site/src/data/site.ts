@@ -7,11 +7,11 @@ export const SITE = {
   url: 'https://sallyalptekin.com',
   role: 'Product Manager',
   tagline: 'E-commerce Strategy · Online Experience Optimization · Product Management',
-  location: 'Atlanta, GA',
-  // Placeholders — update with Sally's preferred public email + LinkedIn URL.
-  email: 'hello@sallyalptekin.com',
+  location: 'Marietta, GA',
+  // Email intentionally blank for now — the footer hides the Email link when empty.
+  email: '',
   social: {
-    linkedin: 'https://www.linkedin.com/in/sally-tang-alptekin',
+    linkedin: 'https://www.linkedin.com/in/tangsally/',
   },
 };
 

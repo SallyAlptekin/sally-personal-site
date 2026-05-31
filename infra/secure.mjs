@@ -7,6 +7,7 @@ import {
   getZones,
   upsertPhaseRule,
   enableBotFightMode,
+  enableAlwaysHttps,
   parseArgs,
   COUNTRY_BLOCK,
   SALLY_ZONE,
@@ -33,6 +34,7 @@ const rule = {
 
 console.log(`\n=== Secure ${SALLY_ZONE} — ${apply ? 'APPLY' : 'DRY-RUN'} ===`);
 console.log('WAF geo-block:', expression);
+console.log('Always Use HTTPS: enable (HTTP → HTTPS 301)');
 console.log('Bot Fight Mode: enable (challenges bad bots; allows verified crawlers like Googlebot)');
 if (!apply) {
   console.log('\n(dry-run — re-run with --apply to make changes)');
@@ -41,6 +43,12 @@ if (!apply) {
 
 await upsertPhaseRule(token, zone.id, 'http_request_firewall_custom', rule, { apply: true });
 console.log('✓ WAF geo-block rule applied');
+try {
+  await enableAlwaysHttps(token, zone.id);
+  console.log('✓ Always Use HTTPS enabled (HTTP → HTTPS)');
+} catch (e) {
+  console.log('⚠ Always Use HTTPS:', e.message);
+}
 try {
   await enableBotFightMode(token, zone.id);
   console.log('✓ Bot Fight Mode enabled');

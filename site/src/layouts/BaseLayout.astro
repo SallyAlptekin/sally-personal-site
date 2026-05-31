@@ -91,7 +91,7 @@ const isActive = (href: string) =>
         <span>© {new Date().getFullYear()} {SITE.name}</span>
         <span class="nav__spacer"></span>
         <a href={SITE.social.linkedin} target="_blank" rel="me noopener">LinkedIn</a>
-        <a href={`mailto:${SITE.email}`}>Email</a>
+        {SITE.email && <a href={`mailto:${SITE.email}`}>Email</a>}
       </div>
     </footer>
   </body>
