@@ -37,11 +37,16 @@ describe('home', () => {
   test('og:image', () => assert.match(read('index.html'), /property="og:image"/));
   test('theme toggle', () => assert.match(read('index.html'), /theme-toggle/));
   test('featured work', () => assert.match(read('index.html'), /Featured work/));
+  test('no "Product Manager" label', () => assert.ok(!read('index.html').includes('Product Manager')));
 });
 
-describe('about / résumé', () => {
-  for (const s of ['Product Manager', 'The Home Depot', 'Equifax', 'Interests', 'University of Georgia', 'CSPO']) {
+describe('about (bio + skills only)', () => {
+  for (const s of ['Marietta, GA', 'Skills', 'Roadmapping']) {
     test(`contains "${s}"`, () => assert.ok(read('about/index.html').includes(s)));
+  }
+  test('bio present', () => assert.match(read('about/index.html'), /product manager/i));
+  for (const gone of ['Experience', 'Interests', 'Certifications', 'Volunteering', 'Education']) {
+    test(`section removed: ${gone}`, () => assert.ok(!read('about/index.html').includes(`${gone}</h2>`)));
   }
 });
 

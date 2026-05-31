@@ -1,7 +1,7 @@
 // Site-wide config + links. Edit these and they update everywhere.
 export const SITE = {
   name: 'Sally Tang Alptekin',
-  title: 'Sally Tang Alptekin — Product Manager',
+  title: 'Sally Tang Alptekin',
   description:
     'Product manager focused on e-commerce strategy, online experience optimization, and customer data — with a creative side.',
   url: 'https://sallyalptekin.com',

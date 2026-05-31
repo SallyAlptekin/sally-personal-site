@@ -12,7 +12,6 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: SITE.name,
-    jobTitle: SITE.role,
     url: SITE.url,
     sameAs: [SITE.social.linkedin],
   },
@@ -24,12 +23,10 @@ const jsonLd = [
     <Image class="hero__photo" src={profile} alt={SITE.name} width={256} height={256} />
     <div>
       <h1 class="hero__title">{SITE.name}</h1>
-      <p class="hero__role">{SITE.role}</p>
       <p class="hero__role muted">{SITE.location}</p>
     </div>
   </section>
 
-  <p class="lead">{SITE.tagline}.</p>
   <p>
     I build customer-facing products and online experiences — and I make art on the side.
     <a href="/about">More about me →</a>
