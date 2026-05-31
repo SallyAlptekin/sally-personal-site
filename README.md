@@ -1,7 +1,7 @@
 # sallyalptekin.com
 
-Personal site for **Sally Tang Alptekin** — Home, About, Projects, Artwork. A fully static
-[Astro](https://astro.build) site served from **Cloudflare Workers** (free tier).
+Personal site for **Sally Tang Alptekin** — Home, About, Projects, Artwork, and a Blog. A fully
+static [Astro](https://astro.build) site served from **Cloudflare Workers** (free tier).
 
 > **Isolated from Kenan's sites:** this is its own Worker (`sallyalptekin-site`) bound only to
 > `sallyalptekin.com`. Nothing here references Kenan's domains, and it's meant to be deployed with
@@ -31,11 +31,12 @@ npm test         # build + smoke tests
 
 | Task | Where |
 |------|-------|
-| Bio / experience / interests | `site/src/data/resume.ts` |
+| Bio / Skills (About page) | `site/src/data/resume.ts` — only `BIO` + `SKILLS` render |
 | Projects | `site/src/data/projects.ts` |
-| Name / links / email | `site/src/data/site.ts` |
+| Name / links / location | `site/src/data/site.ts` |
 | Photo | replace `site/src/assets/sally.jpeg` |
 | **Add artwork** | drop images into `site/src/assets/artwork/` (auto-appears on `/artwork`) |
+| **Add a blog post** | create `site/src/content/blog/my-post.md` (frontmatter: `title`, `description`, `pubDate`, `tags`) |
 
 ## Deploy
 
