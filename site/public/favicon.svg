@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Sally Tang Alptekin">
+  <rect width="32" height="32" rx="7" fill="#7c3aed"/>
+  <ellipse cx="16" cy="16.5" rx="9.5" ry="7.5" fill="#ffffff"/>
+  <ellipse cx="12.5" cy="19.5" rx="2.1" ry="1.8" fill="#7c3aed"/>
+  <circle cx="12" cy="12.8" r="1.5" fill="#ef4444"/>
+  <circle cx="16.5" cy="11.2" r="1.5" fill="#f59e0b"/>
+  <circle cx="20.3" cy="13.3" r="1.5" fill="#10b981"/>
+  <circle cx="20.8" cy="17.6" r="1.5" fill="#ec4899"/>
+</svg>

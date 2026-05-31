@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { SITE } from '../data/site';
+import profile from '../assets/sally.jpeg';
+import {
+  BIO,
+  INTERESTS,
+  EXPERIENCE,
+  SKILLS,
+  EDUCATION,
+  CERTS,
+  HONORS,
+  VOLUNTEERING,
+} from '../data/resume';
+---
+<BaseLayout title="About" description={`About ${SITE.name} — ${SITE.role} in ${SITE.location}.`}>
+  <div class="about-head">
+    <Image class="about-photo" src={profile} alt={SITE.name} width={256} height={256} />
+    <div>
+      <h1>About</h1>
+      <p class="muted">{SITE.role} · {SITE.location}</p>
+    </div>
+  </div>
+
+  {BIO.map((p) => <p>{p}</p>)}
+
+  <h2>Interests</h2>
+  <ul class="stack-list">
+    {INTERESTS.map((i) => <li>{i}</li>)}
+  </ul>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="exp">
+      {
+        EXPERIENCE.map((job) => (
+          <div class="exp__item">
+            <div class="exp__head">
+              <span>
+                <span class="exp__role">{job.role}</span>
+                <span class="exp__org"> · {job.org}</span>
+              </span>
+              <span class="exp__dates">{job.dates}</span>
+            </div>
+            <ul class="exp__points">
+              {job.points.map((pt) => (
+                <li>{pt}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skill-groups">
+      {
+        SKILLS.map((s) => (
+          <div>
+            <dt>{s.group}</dt>
+            <dd>{s.items.join(' · ')}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    {
+      EDUCATION.map((e) => (
+        <p>
+          <strong>{e.school}</strong>
+          <br />
+          {e.degree}
+          {e.dates ? <Fragment> · <span class="muted">{e.dates}</span></Fragment> : null}
+        </p>
+      ))
+    }
+
+    <h2>Certifications</h2>
+    {
+      CERTS.map((c) => (
+        <p>
+          <strong>{c.name}</strong>
+          <br />
+          <span class="muted">
+            {c.issuer} · {c.date}
+          </span>
+        </p>
+      ))
+    }
+
+    <h2>Honors</h2>
+    <ul class="stack-list">
+      {HONORS.map((h) => <li>{h}</li>)}
+    </ul>
+
+    <h2>Volunteering</h2>
+    <ul class="stack-list">
+      {VOLUNTEERING.map((v) => <li>{v}</li>)}
+    </ul>
+  </section>
+</BaseLayout>

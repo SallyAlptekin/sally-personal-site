@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Separate Worker, bound only to sallyalptekin.com — fully isolated from
+  // Kenan's Workers/domains so a scoped API token can manage just this site.
+  "name": "sallyalptekin-site",
+  "compatibility_date": "2026-05-31",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "sallyalptekin.com", "custom_domain": true },
+    { "pattern": "www.sallyalptekin.com", "custom_domain": true }
+  ],
+  "workers_dev": false
+}

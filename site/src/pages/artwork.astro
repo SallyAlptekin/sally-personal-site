@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Auto gallery: drop image files into src/assets/artwork/ and they show up here
+// (optimized by Astro). No code changes needed — just add files and redeploy.
+const modules = import.meta.glob('../assets/artwork/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+const pieces = Object.entries(modules)
+  .map(([path, mod]) => ({
+    src: (mod as any).default,
+    name: (path.split('/').pop() || '').replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+---
+<BaseLayout title="Artwork" description="Artwork by Sally Tang Alptekin.">
+  <h1>Artwork</h1>
+  <p class="muted">A collection of my creative work.</p>
+  {
+    pieces.length === 0 ? (
+      <p class="muted">Artwork coming soon — pieces will appear here.</p>
+    ) : (
+      <div class="art-grid">
+        {pieces.map((p) => (
+          <figure class="art-item">
+            <Image src={p.src} alt={p.name} width={600} />
+          </figure>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  org?: string;
+  period?: string;
+  description?: string;
+  points?: string[];
+  tags?: string[];
+}
+
+const { title, org, period, description, points = [], tags = [] } = Astro.props;
+const meta = [org, period].filter(Boolean).join(' · ');
+---
+<article class="card">
+  <h3 class="card__title">{title}</h3>
+  {meta && <p class="card__meta">{meta}</p>}
+  {description && <p class="card__desc">{description}</p>}
+  {
+    points.length > 0 && (
+      <ul class="card__points">
+        {points.map((p) => (
+          <li>{p}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((t) => (
+          <li>
+            <span class="tag">{t}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>

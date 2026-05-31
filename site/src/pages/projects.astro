@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { PROJECTS } from '../data/projects';
+---
+<BaseLayout title="Projects" description="Selected product work by Sally Tang Alptekin.">
+  <h1>Projects</h1>
+  <p class="muted">
+    Selected product work across e-commerce, loyalty, customer data, and consumer fintech.
+  </p>
+  <div class="cards cards--2">
+    {
+      PROJECTS.map((p) => (
+        <ProjectCard
+          title={p.title}
+          org={p.org}
+          period={p.period}
+          description={p.description}
+          points={p.points}
+          tags={p.tags}
+        />
+      ))
+    }
+  </div>
+</BaseLayout>

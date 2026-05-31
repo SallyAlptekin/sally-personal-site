@@ -1,0 +1,13 @@
+# Secrets — NEVER commit
+cf_creds
+.env
+.env.*
+
+# Dependencies & build output
+node_modules/
+site/dist/
+site/.astro/
+
+# OS / editor
+.DS_Store
+*.log

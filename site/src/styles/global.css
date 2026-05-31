@@ -1,0 +1,156 @@
+/* ============================================================
+   Sally Tang Alptekin — global styles
+   Minimal / editorial with a creative violet accent. Light + dark
+   via a `.dark` class on <html>. Near-zero JS (theme toggle only).
+   ============================================================ */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1c1a22;
+  --muted: #645c70;
+  --border: #ece9f1;
+  --card: #faf8fd;
+  --accent: #7c3aed;
+  --accent-fg: #ffffff;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --maxw: 46rem;
+  --radius: 12px;
+  color-scheme: light;
+}
+
+html.dark {
+  --bg: #14121a;
+  --fg: #ece9f3;
+  --muted: #a79fb6;
+  --border: #2a2536;
+  --card: #1d1a26;
+  --accent: #a78bfa;
+  --accent-fg: #14121a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 1.25rem; }
+main { flex: 1 0 auto; padding-block: 2.5rem 4rem; }
+
+/* ---------- typography ---------- */
+h1, h2, h3 { line-height: 1.25; font-weight: 650; letter-spacing: -0.01em; }
+h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+h2 { font-size: 1.4rem; margin: 2.25rem 0 0.75rem; }
+h3 { font-size: 1.12rem; margin: 1.5rem 0 0.5rem; }
+p { margin: 0 0 1rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+.muted { color: var(--muted); }
+.lead { font-size: 1.18rem; color: var(--muted); }
+hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+img { max-width: 100%; height: auto; border-radius: var(--radius); }
+
+/* ---------- header / nav ---------- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(8px);
+  z-index: 10;
+}
+.nav { display: flex; align-items: center; gap: 1.25rem; height: 3.5rem; }
+.nav__brand { font-weight: 680; color: var(--fg); letter-spacing: -0.02em; }
+.nav__spacer { flex: 1; }
+.nav__link { color: var(--muted); font-size: 0.95rem; }
+.nav__link:hover, .nav__link[aria-current="page"] { color: var(--fg); text-decoration: none; }
+.theme-toggle {
+  background: none; border: 1px solid var(--border); color: var(--fg);
+  width: 2rem; height: 2rem; border-radius: 8px; cursor: pointer;
+  display: inline-grid; place-items: center; font-size: 0.95rem;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+
+/* ---------- footer ---------- */
+.site-footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; padding-block: 1.5rem; }
+.site-footer .nav { height: auto; flex-wrap: wrap; gap: 1rem; }
+.site-footer a { color: var(--muted); }
+.site-footer a:hover { color: var(--fg); }
+
+/* ---------- hero (home) ---------- */
+.hero { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; }
+.hero__photo { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); flex: none; }
+.hero__title { margin: 0; }
+.hero__role { color: var(--muted); margin: 0.15rem 0 0; }
+@media (max-width: 30rem) { .hero { flex-direction: column; align-items: flex-start; } }
+
+/* ---------- about header photo ---------- */
+.about-head { display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.25rem; }
+.about-head h1 { margin: 0; }
+.about-head p { margin: 0.25rem 0 0; }
+.about-photo { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); flex: none; }
+@media (max-width: 30rem) { .about-head { flex-direction: column; align-items: flex-start; } }
+
+/* ---------- cards ---------- */
+.cards { display: grid; gap: 1rem; }
+.cards--2 { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.card { display: block; border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 1.1rem 1.2rem; color: inherit; }
+.card__title { font-weight: 640; margin: 0 0 0.25rem; }
+.card__meta { color: var(--muted); font-size: 0.82rem; font-family: var(--font-mono); margin: 0 0 0.4rem; }
+.card__desc { color: var(--muted); margin: 0; font-size: 0.95rem; }
+.card__points { margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.92rem; }
+.card__points li { margin: 0.2rem 0; }
+
+/* ---------- tags ---------- */
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 0; padding: 0; list-style: none; }
+.tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 0.1rem 0.6rem; background: var(--bg); }
+
+/* ---------- experience / résumé ---------- */
+.exp { display: grid; gap: 1.4rem; margin: 1rem 0; }
+.exp__item { display: grid; gap: 0.15rem; }
+.exp__head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
+.exp__role { font-weight: 620; }
+.exp__org { color: var(--muted); }
+.exp__dates { color: var(--muted); font-size: 0.82rem; font-family: var(--font-mono); white-space: nowrap; }
+.exp__points { margin: 0.35rem 0 0; padding-left: 1.1rem; color: var(--muted); }
+.exp__points li { margin: 0.2rem 0; }
+.skill-groups { display: grid; gap: 0.75rem; }
+.skill-groups dt { font-weight: 620; }
+.skill-groups dd { margin: 0.15rem 0 0; color: var(--muted); }
+
+/* ---------- simple lists (interests, volunteering) ---------- */
+.stack-list { list-style: none; padding: 0; margin: 0.5rem 0 1rem; display: grid; gap: 0.4rem; }
+.stack-list li { padding-left: 1rem; position: relative; }
+.stack-list li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+
+/* ---------- artwork gallery (masonry) ---------- */
+.art-grid { columns: 240px; column-gap: 1rem; margin-top: 1rem; }
+.art-item { margin: 0 0 1rem; break-inside: avoid; }
+.art-item img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+
+/* ---------- misc ---------- */
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.back-link { font-family: var(--font-mono); font-size: 0.85rem; }
+
+@media print {
+  .site-header, .site-footer, .theme-toggle { display: none !important; }
+  body { color: #000; background: #fff; font-size: 12px; }
+  main { padding: 0; }
+  a { color: #000; text-decoration: none; }
+  .container { max-width: 100%; }
+}

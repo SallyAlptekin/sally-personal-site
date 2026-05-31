@@ -1,0 +1,16 @@
+{
+  "name": "sally-personal-site",
+  "private": true,
+  "description": "Convenience scripts to run Sally's site + Cloudflare infra from the repo root.",
+  "scripts": {
+    "dev": "cd site && npm run dev",
+    "build": "cd site && npm run build",
+    "preview": "cd site && npm run preview",
+    "test": "cd site && npm test",
+    "deploy": "cd site && npm run build && npx wrangler deploy",
+    "recon": "node infra/recon.mjs",
+    "secure": "node infra/secure.mjs",
+    "secure:apply": "node infra/secure.mjs --apply",
+    "smoke": "node infra/smoke.mjs"
+  }
+}

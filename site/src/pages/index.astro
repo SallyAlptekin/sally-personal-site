@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import ProjectCard from '../components/ProjectCard.astro';
+import { SITE } from '../data/site';
+import { PROJECTS } from '../data/projects';
+import profile from '../assets/sally.jpeg';
+
+const featured = PROJECTS.filter((p) => p.featured).slice(0, 3);
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.name,
+    jobTitle: SITE.role,
+    url: SITE.url,
+    sameAs: [SITE.social.linkedin],
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url },
+];
+---
+<BaseLayout jsonLd={jsonLd}>
+  <section class="hero">
+    <Image class="hero__photo" src={profile} alt={SITE.name} width={256} height={256} />
+    <div>
+      <h1 class="hero__title">{SITE.name}</h1>
+      <p class="hero__role">{SITE.role}</p>
+      <p class="hero__role muted">{SITE.location}</p>
+    </div>
+  </section>
+
+  <p class="lead">{SITE.tagline}.</p>
+  <p>
+    I build customer-facing products and online experiences — and I make art on the side.
+    <a href="/about">More about me →</a>
+  </p>
+
+  {
+    featured.length > 0 && (
+      <section>
+        <div class="section-title">
+          <h2>Featured work</h2>
+          <a class="back-link" href="/projects">
+            All projects →
+          </a>
+        </div>
+        <div class="cards cards--2">
+          {featured.map((p) => (
+            <ProjectCard
+              title={p.title}
+              org={p.org}
+              period={p.period}
+              description={p.description}
+              points={p.points}
+              tags={p.tags}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <p><a href="/artwork">See my artwork →</a></p>
+</BaseLayout>
