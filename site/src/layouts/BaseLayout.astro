@@ -10,11 +10,19 @@ interface Props {
   ogType?: string;
   /** Social image (absolute or root-relative). Defaults to the profile photo. */
   image?: string;
+  /** Article metadata for blog posts (drives article:* + keywords meta). */
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    section?: string;
+    tags?: string[];
+  };
   /** schema.org JSON-LD, object or array. */
   jsonLd?: object | object[];
 }
 
-const { title, description = SITE.description, ogType = 'website', image, jsonLd } = Astro.props;
+const { title, description = SITE.description, ogType = 'website', image, article, jsonLd } =
+  Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.title;
 const base = Astro.site ?? SITE.url;
 const canonical = new URL(Astro.url.pathname, base);
@@ -35,6 +43,12 @@ const isActive = (href: string) =>
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE.name} — Blog`}
+      href="/rss.xml"
+    />
 
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14121a" media="(prefers-color-scheme: dark)" />
@@ -47,6 +61,24 @@ const isActive = (href: string) =>
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+    {
+      article && (
+        <>
+          {article.publishedTime && (
+            <meta property="article:published_time" content={article.publishedTime} />
+          )}
+          {article.modifiedTime && (
+            <meta property="article:modified_time" content={article.modifiedTime} />
+          )}
+          {article.section && <meta property="article:section" content={article.section} />}
+          <meta property="article:author" content={SITE.name} />
+          {(article.tags ?? []).map((t) => (
+            <meta property="article:tag" content={t} />
+          ))}
+        </>
+      )
+    }
+    {article?.tags?.length ? <meta name="keywords" content={article.tags.join(', ')} /> : null}
 
     <!-- Set the theme class before first paint to avoid a flash. -->
     <script is:inline>
@@ -92,7 +124,32 @@ const isActive = (href: string) =>
         <span class="nav__spacer"></span>
         <a href={SITE.social.linkedin} target="_blank" rel="me noopener">LinkedIn</a>
         {SITE.email && <a href={`mailto:${SITE.email}`}>Email</a>}
+        <a href="/rss.xml">RSS</a>
       </div>
     </footer>
+
+    <!-- Add a "Copy" button to every code block. -->
+    <script is:inline>
+      (function () {
+        document.querySelectorAll('pre').forEach(function (pre) {
+          if (pre.querySelector('.copy-btn')) return;
+          var btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.type = 'button';
+          btn.textContent = 'Copy';
+          btn.addEventListener('click', function () {
+            var code = pre.querySelector('code');
+            var text = code ? code.innerText : pre.innerText;
+            navigator.clipboard.writeText(text).then(function () {
+              btn.textContent = 'Copied';
+              setTimeout(function () {
+                btn.textContent = 'Copy';
+              }, 1500);
+            });
+          });
+          pre.appendChild(btn);
+        });
+      })();
+    </script>
   </body>
 </html>

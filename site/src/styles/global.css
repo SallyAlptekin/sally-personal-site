@@ -147,6 +147,53 @@ img { max-width: 100%; height: auto; border-radius: var(--radius); }
 .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .back-link { font-family: var(--font-mono); font-size: 0.85rem; }
 
+/* ---------- code blocks ---------- */
+code {
+  font-family: var(--font-mono); font-size: 0.88em;
+  background: color-mix(in srgb, var(--muted) 16%, transparent);
+  padding: 0.12em 0.4em; border-radius: 5px;
+}
+pre {
+  background: #0d1117 !important; color: #e6edf3;
+  padding: 1rem 1.1rem; border-radius: var(--radius);
+  overflow-x: auto; border: 1px solid var(--border); position: relative;
+}
+pre code { background: none; padding: 0; font-size: 0.86rem; }
+blockquote { margin: 1rem 0; padding: 0.25rem 0 0.25rem 1rem; border-left: 3px solid var(--accent); color: var(--muted); }
+
+/* ---------- blog post list ---------- */
+.post-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; }
+.post-list__item { display: grid; gap: 0.2rem; }
+.post-list__title { font-size: 1.1rem; font-weight: 620; }
+.post-list time { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); }
+
+/* ---------- article ---------- */
+.article__header { margin-bottom: 1.5rem; }
+.article__meta { color: var(--muted); font-family: var(--font-mono); font-size: 0.85rem; }
+.prose :is(h2, h3, h4) { scroll-margin-top: 4.5rem; position: relative; }
+.prose ul, .prose ol { padding-left: 1.3rem; }
+.prose li { margin: 0.3rem 0; }
+
+/* ---------- code copy button ---------- */
+.copy-btn {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.72rem; color: #c9d1d9;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px; padding: 0.15rem 0.5rem; cursor: pointer; opacity: 0; transition: opacity 0.15s ease;
+}
+pre:hover .copy-btn, .copy-btn:focus { opacity: 1; }
+.copy-btn:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* ---------- heading anchors ---------- */
+.heading-anchor { margin-left: 0.4rem; color: var(--muted); text-decoration: none; font-weight: 400; opacity: 0; }
+.prose :is(h2, h3, h4):hover .heading-anchor, .heading-anchor:focus { opacity: 1; }
+
+/* ---------- prev/next + related ---------- */
+.post-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.95rem; }
+.post-nav a { max-width: 48%; }
+.related { margin-top: 2.5rem; }
+.related h2 { margin-bottom: 1rem; }
+
 @media print {
   .site-header, .site-footer, .theme-toggle { display: none !important; }
   body { color: #000; background: #fff; font-size: 12px; }

@@ -59,9 +59,14 @@ describe('artwork', () => {
   test('page renders', () => assert.match(read('artwork/index.html'), /Artwork/));
 });
 
-describe('no blog (per request)', () => {
-  test('no blog page built', () => assert.ok(!has('blog/index.html')));
-  test('nav has no blog link', () => assert.ok(!/href="\/blog"/.test(read('index.html'))));
+describe('blog', () => {
+  test('blog index built', () => assert.ok(has('blog/index.html')));
+  test('nav has blog link', () => assert.match(read('index.html'), /href="\/blog"/));
+  test('post renders', () => assert.match(read('blog/welcome/index.html'), /Hello, world/));
+  test('post has BlogPosting JSON-LD', () =>
+    assert.match(read('blog/welcome/index.html'), /"@type":"BlogPosting"/));
+  test('rss feed built', () => assert.ok(has('rss.xml')));
+  test('tag archive built', () => assert.ok(has('blog/tags/life/index.html')));
 });
 
 describe('no broken internal links', () => {

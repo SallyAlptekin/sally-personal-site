@@ -1,0 +1,32 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import { tagSlug } from '../utils/tags';
+
+interface Props {
+  url: string;
+  title: string;
+  description?: string;
+  date: Date;
+  tags?: string[];
+}
+
+const { url, title, description, date, tags = [] } = Astro.props;
+---
+<li class="post-list__item">
+  <a class="post-list__title" href={url}>{title}</a>
+  <FormattedDate date={date} />
+  {description && <p class="card__desc">{description}</p>}
+  {
+    tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((t) => (
+          <li>
+            <a class="tag" href={`/blog/tags/${tagSlug(t)}`}>
+              #{t}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</li>

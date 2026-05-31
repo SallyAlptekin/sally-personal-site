@@ -1,0 +1,114 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import PostCard from '../../components/PostCard.astro';
+import { SITE } from '../../data/site';
+import { tagSlug, getPublishedPosts } from '../../utils/tags';
+import { readingTime } from '../../utils/reading';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts(); // newest-first, drafts excluded
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      newer: i > 0 ? posts[i - 1] : null,
+      older: i < posts.length - 1 ? posts[i + 1] : null,
+    },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, heroImage, tags } = post.data;
+const minutes = readingTime(post.body ?? '');
+
+const base = Astro.site ?? SITE.url;
+const canonicalUrl = new URL(`/blog/${post.id}/`, base).toString();
+const article = {
+  publishedTime: pubDate.toISOString(),
+  modifiedTime: (updatedDate ?? pubDate).toISOString(),
+  section: 'Blog',
+  tags,
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Person', name: SITE.name, url: SITE.url },
+  publisher: { '@type': 'Person', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: canonicalUrl,
+  url: canonicalUrl,
+  keywords: tags.join(', '),
+  ...(heroImage ? { image: new URL(heroImage, base).toString() } : {}),
+};
+const related = (await getPublishedPosts())
+  .filter((p) => p.id !== post.id && p.data.tags.some((t) => tags.includes(t)))
+  .slice(0, 3);
+---
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  image={heroImage}
+  article={article}
+  jsonLd={jsonLd}
+>
+  <article class="prose">
+    <div class="article__header">
+      <a class="back-link" href="/blog">← Blog</a>
+      <h1>{title}</h1>
+      <p class="article__meta">
+        <FormattedDate date={pubDate} />
+        {updatedDate && <Fragment> · updated <FormattedDate date={updatedDate} /></Fragment>}
+        · {minutes}
+      </p>
+      {
+        tags.length > 0 && (
+          <ul class="tags">
+            {tags.map((t) => (
+              <li>
+                <a class="tag" href={`/blog/tags/${tagSlug(t)}`}>
+                  #{t}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    <Content />
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="related">
+        <h2>Related posts</h2>
+        <ul class="post-list">
+          {related.map((p) => (
+            <PostCard
+              url={`/blog/${p.id}`}
+              title={p.data.title}
+              description={p.data.description}
+              date={p.data.pubDate}
+              tags={p.data.tags}
+            />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    (newer || older) && (
+      <nav class="post-nav">
+        {older ? <a href={`/blog/${older.id}`}>← {older.data.title}</a> : <span />}
+        {newer ? <a href={`/blog/${newer.id}`}>{newer.data.title} →</a> : <span />}
+      </nav>
+    )
+  }
+</BaseLayout>
