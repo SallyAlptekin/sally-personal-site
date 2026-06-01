@@ -3,7 +3,7 @@
 export const BIO = [
   "I'm a product manager focused on e-commerce strategy, online experience optimization, and customer data.",
   'At The Home Depot I help power loyalty and online experiences for a $25B+ e-commerce business; before that I led consumer products at Equifax. I love turning messy requirements into clear roadmaps and shipping things that make customers’ lives easier.',
-  "I work across engineering, UX, design, legal, and business stakeholders — and I'm happiest when I'm learning something new.",
+  'I work across engineering, UX, design, legal, and business stakeholders.',
 ];
 
 // Personal interests — edit freely (placeholders to start).
