@@ -36,7 +36,8 @@ describe('home', () => {
   test('Person JSON-LD', () => assert.match(read('index.html'), /"@type":"Person"/));
   test('og:image', () => assert.match(read('index.html'), /property="og:image"/));
   test('theme toggle', () => assert.match(read('index.html'), /theme-toggle/));
-  test('featured work', () => assert.match(read('index.html'), /Featured work/));
+  test('featured work hidden when no projects', () =>
+    assert.doesNotMatch(read('index.html'), /Featured work/));
   test('no "Product Manager" label', () => assert.ok(!read('index.html').includes('Product Manager')));
 });
 
@@ -51,8 +52,9 @@ describe('about (bio + skills only)', () => {
 });
 
 describe('projects', () => {
-  test('lists product work', () => assert.match(read('projects/index.html'), /Pro Xtra Loyalty Program/));
-  test('shows metrics', () => assert.match(read('projects/index.html'), /18M annual API calls/));
+  test('page title renders', () => assert.match(read('projects/index.html'), /<h1>Projects<\/h1>/));
+  test('project cards are empty when list is cleared', () =>
+    assert.match(read('projects/index.html'), /<div class="cards cards--2">\s*<\/div>/));
 });
 
 describe('artwork', () => {
