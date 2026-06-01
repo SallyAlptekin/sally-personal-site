@@ -62,7 +62,7 @@ a dashboard toggle; it can't be set via API.)
 
 ## Auto-deploy (GitHub Actions)
 
-Pushing to `main` builds, tests, and deploys automatically via `.github/workflows/deploy.yml` (free).
+Pushing to `main` builds, tests, and deploys automatically via `.github/workflows/deploy.yml` (free tier).
 In Sally's GitHub repo add two **Actions secrets** (Settings → Secrets and variables → Actions):
 
 - `CLOUDFLARE_API_TOKEN` — Sally's scoped token (see below)
